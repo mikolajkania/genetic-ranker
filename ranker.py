@@ -28,7 +28,8 @@ class Ranker:
         self.toolbox.register("select", tools.selTournament, tournsize=2)
 
     def fitness(self, individual):
-        return sum(individual),     # todo why have to be tuple?
+        # weights must be a tuple so that multi-objective and single objective fitnesses can be treated the same way
+        return sum(individual),
 
     # update individuals's fitness
     def evaluate_population_fitnesses(self, pop):

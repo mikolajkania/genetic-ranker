@@ -1,0 +1,1 @@
+- cache fitness results for a future retrieve

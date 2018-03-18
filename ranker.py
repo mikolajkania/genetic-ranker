@@ -93,7 +93,7 @@ def main():
 
 def print_best(population, ranker):
     top = tools.selBest(population, k=1)
-    print(ranker.fitness(top[0]))
+    print('best: ' + str(top[0]) + ' ' + str(ranker.fitness(top[0])))
     print('\n')
 
 

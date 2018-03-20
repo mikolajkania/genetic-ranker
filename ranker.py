@@ -1,7 +1,7 @@
 import random
 from deap import creator, base, tools, algorithms
-from math import log
-from math import sin
+from math import pow
+from math import copysign
 
 
 class Ranker:
@@ -32,12 +32,7 @@ class Ranker:
 
     # weights must be a tuple so that multi-objective and single objective fitnesses can be treated the same way
     def fitness(self, individual):
-        x = individual[0]
-        y = individual[1]
-        if y == 0 or x <= 0:
-            print(str(individual) + ' ' + '-1')
-            return -1,
-        z = log(x) - sin(x / y),
+        z = pow(individual[0], 2) - pow(individual[1], 2),
         # print(str(individual) + ' ' + str(z[0]))
         return z
 
@@ -53,12 +48,14 @@ class Ranker:
         original = individual[:]
         for i in range(size):
             if random.random() < indpb:
-                if individual[i] + random.randint(low, up) > 100:
+                randint = random.randint(low, up)
+                if copysign(individual[i] + randint, 1) > 100:
                     individual[i] = 100
                 else:
-                    individual[i] += random.randint(low, up)
+                    individual[i] += randint
         if original != individual:
-            print(str(original) + '(' + str(self.fitness(original)[0]) + ') => ' + str(individual) + '(' + str(self.fitness(individual)[0]) + ')')
+            print(str(original) + '(' + str(self.fitness(original)[0]) + ') => ' +
+                  str(individual) + '(' + str(self.fitness(individual)[0]) + ')')
         return individual,
 
 
@@ -66,9 +63,9 @@ def main():
     ranker = Ranker()
 
     # create an initial population of individuals (where each individual is a list of integers)
-    population = ranker.toolbox.population(n=10)
+    population = ranker.toolbox.population(n=8)
 
-    for gen in range(20):
+    for gen in range(5):
         # CXPB  is the probability with which two individuals are crossed
         # MUTPB is the probability for mutating an individual
         offspring = algorithms.varAnd(population, ranker.toolbox, cxpb=0.5, mutpb=0.3)

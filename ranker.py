@@ -21,12 +21,12 @@ class Ranker:
         # list of individuals
         self.toolbox.register("population", tools.initRepeat, list, self.toolbox.individual)
         # fitness function
-        self.toolbox.register("evaluate_fun", self.fitness)
+        self.toolbox.register("evaluate", self.fitness)
         # crossover operator
         self.toolbox.register("mate", tools.cxTwoPoint)
         # a mutation operator
         self.toolbox.register("mut_slightly", self.mut_slightly)
-        self.toolbox.register("mutate", self.toolbox.mut_slightly, low=-10, up=10, indpb=0.1)
+        self.toolbox.register("mutate", self.toolbox.mut_slightly, low=-20, up=20)
         # individuals of the current gen are replaced by the 'fittest'
         self.toolbox.register("select", tools.selTournament, tournsize=2)
 
@@ -39,22 +39,22 @@ class Ranker:
         # update individuals's fitness
 
     def evaluate_population_fitnesses(self, pop):
-        pop_fit = self.toolbox.map(self.toolbox.evaluate_fun, pop)
+        pop_fit = self.toolbox.map(self.toolbox.evaluate, pop)
         for individual, fitness in zip(pop, pop_fit):
             individual.fitness.values = fitness
 
-    def mut_slightly(self, individual, low, up, indpb):
+    def mut_slightly(self, individual, low, up):
         size = len(individual)
         original = individual[:]
         for i in range(size):
-            if random.random() < indpb:
-                randint = random.randint(low, up)
-                if copysign(individual[i] + randint, 1) > 100:
-                    individual[i] = 100
-                else:
-                    individual[i] += randint
+            randint = random.randint(low, up)
+            if copysign(individual[i] + randint, 1) > 100:
+                individual[i] = 100
+            else:
+                individual[i] += randint
+
         if original != individual:
-            print(str(original) + '(' + str(self.fitness(original)[0]) + ') => ' +
+            print('muted: ' + str(original) + '(' + str(self.fitness(original)[0]) + ') => ' +
                   str(individual) + '(' + str(self.fitness(individual)[0]) + ')')
         return individual,
 
@@ -62,18 +62,16 @@ class Ranker:
 def main():
     ranker = Ranker()
 
+    MU, LAMBDA = 10, 20
+
     # create an initial population of individuals (where each individual is a list of integers)
-    population = ranker.toolbox.population(n=8)
+    population = ranker.toolbox.population(n=MU)
+    print(population)
 
-    for gen in range(5):
-        # CXPB  is the probability with which two individuals are crossed
-        # MUTPB is the probability for mutating an individual
-        offspring = algorithms.varAnd(population, ranker.toolbox, cxpb=0.5, mutpb=0.3)
-        ranker.evaluate_population_fitnesses(offspring)
-        population = ranker.toolbox.select(offspring, k=len(population))
-        print(population)
-        print_best(population, ranker)
-
+    # CXPB  is the probability with which two individuals are crossed
+    # MUTPB is the probability for mutating an individual
+    population, logbook = algorithms.eaMuCommaLambda(population, ranker.toolbox, mu=MU, lambda_=LAMBDA, cxpb=0.6, mutpb=0.2, ngen=10)
+    print(population)
     print_best(population, ranker)
 
     # fits = [ind.fitness.values[0] for ind in population]

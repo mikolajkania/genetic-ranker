@@ -16,13 +16,17 @@ def search(query):
     })
     print("For query '%(query)s' got %(hits)d hits:" % {'query': query, 'hits': res['hits']['total']})
     for hit in res['hits']['hits']:
-        print("[%(score)s] %(title)s" % {'title': hit['_source']['title'], 'score': hit['_score']})
+        print("[%(score)s] [%(id)s] %(title)s" % {'score': hit['_score'], 'id': hit['_id'] ,'title': hit['_source']['title']})
     print('\n')
 
 
-search("privacy facebook")  # first is not about facebook
-search("privacy")       # ok+-
-search("trump cambridge")   # ok
-search("trump")     # facebook stock nothing to do with trump
-search("guardian article")  # website below false mention
-search("tesla")
+search("privacy facebook")
+search("privacy")
+search("facebook")
+search("cambridge analytica")
+search("trump cambridge")
+search("trump facebook")
+search("guardian article")
+search("tesla article")
+search("tesla facebook stock market")
+search("blog facebook data breach")

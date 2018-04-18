@@ -13,11 +13,11 @@ class Evaluator:
             for row in model_reader:
                 self.query_to_id[row[0]] = row[1]
 
-    def quality(self):
+    def quality(self, weights=None):
         valid = 0
 
         for key, value in self.query_to_id.items():
-            first = self.searcher.search(key, self.fields)
+            first = self.searcher.search(key, self.fields, weights)
             if first == value:
                 print('Valid result for query=' + key)
                 valid += 1
@@ -33,7 +33,7 @@ class Evaluator:
 
 def main():
     evaluator = Evaluator()
-    evaluator.quality()
+    evaluator.quality([5, 3, 1, 2, 2, 1, 0.5])
 
 
 if __name__ == '__main__':

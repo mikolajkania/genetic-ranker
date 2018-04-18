@@ -4,14 +4,23 @@ from elasticsearch import Elasticsearch
 class Searcher:
     es = Elasticsearch()
 
-    def search(self, query, fields):
+    def search(self, query, fields, weights=None):
+        if weights is None:
+            search_fields = fields
+        else:
+            if len(fields) != len(weights):
+                raise ValueError('Fields & weights lengths should be equal!')
+            search_fields = []
+            for f, w in zip(fields, weights):
+                search_fields.append(f + "^" + str(w))
+
         res = self.es.search(index="articles", body={
             "query": {
                 "multi_match": {
                     "query": query,
                     "type": "cross_fields",
                     "operator": "OR",
-                    "fields": fields
+                    "fields": search_fields
                 }
             }
         })

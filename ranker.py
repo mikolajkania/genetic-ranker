@@ -36,8 +36,7 @@ class Ranker:
         # print(str(individual) + ' ' + str(z[0]))
         return z
 
-        # update individuals's fitness
-
+    # update individuals's fitness
     def evaluate_population_fitnesses(self, pop):
         pop_fit = self.toolbox.map(self.toolbox.evaluate, pop)
         for individual, fitness in zip(pop, pop_fit):
@@ -70,7 +69,8 @@ def main():
 
     # CXPB  is the probability with which two individuals are crossed
     # MUTPB is the probability for mutating an individual
-    population, logbook = algorithms.eaMuCommaLambda(population, ranker.toolbox, mu=MU, lambda_=LAMBDA, cxpb=0.6, mutpb=0.2, ngen=10)
+    population, logbook = algorithms.eaMuCommaLambda(population, ranker.toolbox, mu=MU, lambda_=LAMBDA, cxpb=0.6,
+                                                     mutpb=0.2, ngen=10)
     print(population)
     print_best(population, ranker)
 

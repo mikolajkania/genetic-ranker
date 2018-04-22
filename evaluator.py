@@ -19,11 +19,11 @@ class Evaluator:
         for key, value in self.query_to_id.items():
             first = self.searcher.search(key, self.fields, weights)
             if first == value:
-                print('Valid result for query=' + key)
+                # print('Valid result for query=' + key)
                 valid += 1
-            else:
-                print('Invalid result for query=' + key + ', expected doc with id=' + value)
-            print()
+            # else:
+            #     print('Invalid result for query=' + key + ', expected doc with id=' + value)
+            # print()
 
         quality = valid / len(self.query_to_id)
         print('Search quality is=' + str(quality))

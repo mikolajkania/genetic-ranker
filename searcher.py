@@ -25,11 +25,11 @@ class Searcher:
             }
         })
 
-        print("For query '%(query)s' got %(hits)d hits:" % {'query': query, 'hits': res['hits']['total']})
-        for hit in res['hits']['hits']:
-            print("[%(score)s] [%(id)s] %(title)s" % {'score': hit['_score'],
-                                                      'id': hit['_id'],
-                                                      'title': hit['_source']['title']})
+        # print("For query '%(query)s' got %(hits)d hits:" % {'query': query, 'hits': res['hits']['total']})
+        # for hit in res['hits']['hits']:
+        #     print("[%(score)s] [%(id)s] %(title)s" % {'score': hit['_score'],
+        #                                               'id': hit['_id'],
+        #                                               'title': hit['_source']['title']})
 
         return res['hits']['hits'][0]['_id']
 

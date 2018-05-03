@@ -31,7 +31,7 @@ class Searcher:
         #                                               'id': hit['_id'],
         #                                               'title': hit['_source']['title']})
 
-        return res['hits']['hits'][0]['_id']
+        return [w['_id'] for w in res['hits']['hits']]
 
 
 def main():

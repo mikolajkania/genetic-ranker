@@ -12,37 +12,44 @@ class Evaluator:
             model_reader = csv.reader(csvfile, delimiter=',')
             for row in model_reader:
                 results = row[1].split(sep=":")
-                self.query_to_positions[row[0]] = Evaluator.Results(id=results[0], expected=results[1][3:], adequate=results[2][3:])
+                self.query_to_positions[row[0]] = Evaluator.Expected(docId=results[0], expected=results[1][3:], adequate=results[2][3:])
 
     def quality(self, weights=None, verbose=None):
-        valid = 0
+        score = 0
 
         for key, value in self.query_to_positions.items():
-            first = self.searcher.search(key, self.fields, weights)
-            if first == value:
-                valid += 1
-            elif verbose:
-                print('Invalid result for query=' + key + ', expected doc with id=' + value)
+            results_ids = self.searcher.search(key, self.fields, weights)
 
-        quality = valid / len(self.query_to_positions) * 100
+            if len(results_ids) == 0:
+                continue
+
+            if value.docId in results_ids[:value.expected_in_top]:
+                score += 1
+            elif value.docId in results_ids[:value.adequate_in_top]:
+                score += 0.5
+            else:
+                continue
+
+        quality = round(score / len(self.query_to_positions) * 100, 1)
 
         if verbose:
             print("Search quality is [%(q)d%%] for %(w)s:" % {'q': quality, 'w': weights})
 
         return quality
 
-    class Results:
-        id = -1
+    class Expected:
+        docId = -1
         expected_in_top = -1
         adequate_in_top = -1
 
-        def __init__(self, id, expected, adequate):
-            self.id = id
-            self.expected_in_top = expected
-            self.adequate_in_top = adequate
+        def __init__(self, docId, expected, adequate):
+            self.docId = docId
+            self.expected_in_top = int(expected)
+            self.adequate_in_top = int(adequate)
 
         def __str__(self):
-            return "id: " + self.id + ", expected in top: " + self.expected_in_top + ", adequate in top: " + self.adequate_in_top
+            return "id: " + self.docId + ", expected in top: " + str(self.expected_in_top) + \
+                   ", adequate in top: " + str(self.adequate_in_top)
 
         def __repr__(self):
             return self.__str__()

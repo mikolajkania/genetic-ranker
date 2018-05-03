@@ -47,7 +47,7 @@ class Ranker:
     def mutate_random_resetting(self, individual, low, up, verbose=None):
         size = len(individual)
         original = individual[:]
-        gene = random.randint(0, size-1)
+        gene = random.randint(0, size - 1)
         individual[gene] = random.randint(low, up)
 
         if verbose:
@@ -58,9 +58,24 @@ class Ranker:
     def print_different(self, original, individual):
         # todo how many
         if original != individual:
-            print('muted: ' + str(original) + '(' + str(self.fitness(original)[0]) + ') => ' +
-                  str(individual) + '(' + str(self.fitness(individual)[0]) + ')')
+            original_fitness = self.fitness(original)[0]
+            individual_fitness = self.fitness(individual)[0]
 
+            diff = individual_fitness - original_fitness
+            if diff > 0:
+                message = '[' + self.contant_length('+' + str(diff)) + ']'
+            elif diff < 0:
+                message = '[' + self.contant_length(str(diff)) + ']'
+            else:
+                message = '[' + self.contant_length('') + ']'
+
+            message = message + ' muted: ' + str(original) + '(' + str(original_fitness) + ') => ' + \
+                      str(individual) + '(' + str(individual_fitness) + ')'
+
+            print(message)
+
+    def contant_length(self, text):
+        return text.ljust(5)
 
 def main():
     ranker = Ranker()

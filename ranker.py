@@ -28,7 +28,7 @@ class Ranker:
         self.toolbox.register("mate", tools.cxTwoPoint)
         # a mutation operator
         self.toolbox.register("mutate_slightly", self.mutate_random_resetting)
-        self.toolbox.register("mutate", self.toolbox.mutate_slightly, low=0, up=10)
+        self.toolbox.register("mutate", self.toolbox.mutate_slightly, low=0, up=10, verbose=True)
         # individuals of the current gen are replaced by the 'fittest'
         self.toolbox.register("select", tools.selTournament, tournsize=2)
 
@@ -56,6 +56,7 @@ class Ranker:
         return individual,
 
     def print_different(self, original, individual):
+        # todo how many
         if original != individual:
             print('muted: ' + str(original) + '(' + str(self.fitness(original)[0]) + ') => ' +
                   str(individual) + '(' + str(self.fitness(individual)[0]) + ')')
@@ -63,7 +64,7 @@ class Ranker:
 
 def main():
     ranker = Ranker()
-    hof = tools.HallOfFame(1)
+    hof = tools.HallOfFame(5)
 
     MU, LAMBDA = 10, 20
 
@@ -84,6 +85,7 @@ def print_best(population, ranker, hof):
     print('\n')
     print('best of last population: {0} {1}%%'.format(str(top[0]), str(ranker.fitness(top[0])[0])))
     print('best overall: {0} {1}%%'.format(str(hof[0]), str(ranker.fitness(hof[0])[0])))
+    print('hall of fame: {0}'.format(str(hof)))
 
 
 if __name__ == "__main__":

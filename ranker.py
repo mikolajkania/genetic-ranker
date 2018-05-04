@@ -77,11 +77,12 @@ class Ranker:
     def contant_length(self, text):
         return text.ljust(5)
 
+
 def main():
     ranker = Ranker()
     hof = tools.HallOfFame(5)
 
-    MU, LAMBDA = 10, 20
+    MU, LAMBDA = 20, 40
 
     # create an initial population of individuals (where each individual is a list of integers)
     population = ranker.toolbox.population(n=MU)
@@ -90,7 +91,7 @@ def main():
     # CXPB  is the probability with which two individuals are crossed
     # MUTPB is the probability for mutating an individual
     population, logbook = algorithms.eaMuPlusLambda(population, ranker.toolbox, mu=MU, lambda_=LAMBDA, cxpb=0.6,
-                                                    mutpb=0.2, ngen=20, halloffame=hof)
+                                                    mutpb=0.2, ngen=5, halloffame=hof)
     # print(population)
     print_best(population, ranker, hof)
 

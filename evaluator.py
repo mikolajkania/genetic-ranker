@@ -1,9 +1,9 @@
 import csv
-from searcher import Searcher
+from essearcher import ESSearcher
 
 
 class Evaluator:
-    searcher = Searcher()
+    searcher = ESSearcher()
     query_to_positions = {}
     fields = ["title", "tags", "entities", "website", "type", "content_main", "content_additional"]
 

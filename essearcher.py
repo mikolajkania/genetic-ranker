@@ -1,7 +1,7 @@
 from elasticsearch import Elasticsearch
 
 
-class Searcher:
+class ESSearcher:
     es = Elasticsearch()
 
     def search(self, query, fields, weights=None):
@@ -29,7 +29,7 @@ class Searcher:
 
 
 def main():
-    searcher = Searcher()
+    searcher = ESSearcher()
     searcher.search("privacy", ["title", "tags", "entities", "website", "type", "content_main", "content_additional"])
 
 

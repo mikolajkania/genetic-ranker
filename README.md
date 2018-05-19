@@ -1,5 +1,5 @@
 # GeneticSearch
-XXX is a framework using power of genetic algorithms to found optimal search weights for ElasticSearch query.
+A framework using power of genetic algorithms to found optimal search weights for ElasticSearch or Solr queries.
 
 **How to run**
 
@@ -12,4 +12,5 @@ XXX is a framework using power of genetic algorithms to found optimal search wei
 **Link to itblues post**
 
 **Versions**
+0.2 Solr client added
 0.1 The algorithm, elasticsearch client

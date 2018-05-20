@@ -6,6 +6,8 @@ class Evaluator:
     searcher = ESSearcher()
     query_to_positions = {}
     fields = ["title", "tags", "entities", "website", "type", "content_main", "content_additional"]
+    weights_to_score = {}
+    statistics = None
 
     def __init__(self):
         with open('queries.csv') as csvfile:
@@ -13,8 +15,18 @@ class Evaluator:
             for row in model_reader:
                 results = row[1].split(sep=":")
                 self.query_to_positions[row[0]] = Evaluator.Expected(docId=results[0], expected=results[1][3:], adequate=results[2][3:])
+        self.statistics = Evaluator.Statistics()
 
     def quality(self, weights=None, verbose=None):
+        self.statistics.total += 1
+
+        cache_key = self.key(weights)
+        if cache_key in self.weights_to_score:
+            self.statistics.cached_values += 1
+            return self.weights_to_score[cache_key]
+        else:
+            self.statistics.cache_retrievals += 1
+
         score = 0
 
         for key, value in self.query_to_positions.items():
@@ -35,7 +47,26 @@ class Evaluator:
         if verbose:
             print("Search quality is [%(q)d%%] for %(w)s:" % {'q': quality, 'w': weights})
 
+        self.weights_to_score[cache_key] = quality
+
         return quality
+
+    @staticmethod
+    def key(weights):
+        return tuple(weights)
+
+    def getCacheLength(self):
+        return len(self.weights_to_score)
+
+    class Statistics:
+        total = 0
+        cache_retrievals = 0
+        cached_values = 0
+
+        def __str__(self) -> str:
+            return "Total evaluations: " + str(self.total) + ", " + \
+                   "cached values: " + str(self.cached_values) + \
+                   ", retrivals from cache: " + str(self.cache_retrievals) + "."
 
     class Expected:
         docId = -1

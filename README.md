@@ -13,5 +13,6 @@ A framework using power of genetic algorithms to found optimal search weights fo
 
 **Versions**
     
+    0.3 Cache searcher values
     0.2 Solr client added
     0.1 The algorithm, elasticsearch client

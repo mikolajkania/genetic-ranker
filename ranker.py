@@ -63,18 +63,19 @@ class Ranker:
 
             diff = individual_fitness - original_fitness
             if diff > 0:
-                message = '[' + self.contant_length('+' + str(diff)) + ']'
+                message = '[' + self.constant_length('+' + str(diff)) + ']'
             elif diff < 0:
-                message = '[' + self.contant_length(str(diff)) + ']'
+                message = '[' + self.constant_length(str(diff)) + ']'
             else:
-                message = '[' + self.contant_length('') + ']'
+                message = '[' + self.constant_length('') + ']'
 
             message = message + ' muted: ' + str(original) + '(' + str(original_fitness) + ') => ' + \
                       str(individual) + '(' + str(individual_fitness) + ')'
 
             print(message)
 
-    def contant_length(self, text):
+    @staticmethod
+    def constant_length(text):
         return text.ljust(5)
 
 
@@ -94,6 +95,8 @@ def main():
                                                     mutpb=0.2, ngen=5, halloffame=hof)
     # print(population)
     print_best(population, ranker, hof)
+
+    print(ranker.evaluator.statistics)
 
 
 def print_best(population, ranker, hof):

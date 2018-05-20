@@ -1,12 +1,14 @@
+import configparser
 import csv
 from essearcher import ESSearcher
+from solrsearcher import SolrSearcher
 
 
 class Evaluator:
-    searcher = ESSearcher()
     query_to_positions = {}
     fields = ["title", "tags", "entities", "website", "type", "content_main", "content_additional"]
     weights_to_score = {}
+    searcher = None
     statistics = None
 
     def __init__(self):
@@ -14,8 +16,19 @@ class Evaluator:
             model_reader = csv.reader(csvfile, delimiter=',')
             for row in model_reader:
                 results = row[1].split(sep=":")
-                self.query_to_positions[row[0]] = Evaluator.Expected(docId=results[0], expected=results[1][3:], adequate=results[2][3:])
+                self.query_to_positions[row[0]] = Evaluator.Expected(docId=results[0],
+                                                                     expected=results[1][3:],
+                                                                     adequate=results[2][3:])
         self.statistics = Evaluator.Statistics()
+        config = configparser.ConfigParser()
+        config.read('properties.ini')
+        searcher = config['DEFAULT']['searcher']
+        if searcher == 'ES':
+            self.searcher = ESSearcher()
+        elif searcher == 'Solr':
+            self.searcher = SolrSearcher()
+        else:
+            raise ValueError('Illegal searcher value')
 
     def quality(self, weights=None, verbose=None):
         self.statistics.total += 1

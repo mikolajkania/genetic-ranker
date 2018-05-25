@@ -1,7 +1,7 @@
 import random
+import time
 
 from deap import creator, base, tools, algorithms
-
 from evaluator import Evaluator
 
 
@@ -9,6 +9,9 @@ class Ranker:
     # all objects will be stored in DEAP container called Toolbox
     toolbox = base.Toolbox()
     evaluator = Evaluator()
+    gene_min = 0
+    gene_max = 10
+    gene_size = 20
 
     def __init__(self):
         # creator - factory to create new classes with given attributes
@@ -17,9 +20,9 @@ class Ranker:
         creator.create("Individual", list, fitness=creator.FitnessMax)
 
         # an attribute ('gene')
-        self.toolbox.register("attr_int", random.randint, 0, 10)
+        self.toolbox.register("attr_int", random.randint, self.gene_min, self.gene_max)
         # individual consisting of elements ('genes')
-        self.toolbox.register("individual", tools.initRepeat, creator.Individual, self.toolbox.attr_int, n=7)
+        self.toolbox.register("individual", tools.initRepeat, creator.Individual, self.toolbox.attr_int, n=self.gene_size)
         # list of individuals
         self.toolbox.register("population", tools.initRepeat, list, self.toolbox.individual)
         # fitness function
@@ -28,14 +31,18 @@ class Ranker:
         self.toolbox.register("mate", tools.cxTwoPoint)
         # a mutation operator
         self.toolbox.register("mutate_slightly", self.mutate_random_resetting)
-        self.toolbox.register("mutate", self.toolbox.mutate_slightly, low=0, up=10, verbose=True)
+        self.toolbox.register("mutate", self.toolbox.mutate_slightly, low=self.gene_min, up=self.gene_max, verbose=True)
         # individuals of the current gen are replaced by the 'fittest'
         self.toolbox.register("select", tools.selTournament, tournsize=2)
 
     # weights must be a tuple so that multi-objective and single objective fitnesses can be treated the same way
-    def fitness(self, individual):
+    def fitness(self, individual, verbose=None):
+        start = time.time()
         fitness = self.evaluator.quality(individual)
-        # print('For individual=' + str(individual) + ', fitness is=' + str(fitness))
+        end = time.time()
+        if verbose:
+            print('For individual=' + str(individual) + ', fitness is=' + str(fitness))
+            print('Quality evaluation time=' + str(end - start))
         return fitness,
 
     # update individuals's fitness
@@ -44,11 +51,13 @@ class Ranker:
         for individual, fitness in zip(pop, pop_fit):
             individual.fitness.values = fitness
 
-    def mutate_random_resetting(self, individual, low, up, verbose=None):
+    def mutate_random_resetting(self, individual, low, up, gene_mutation_scale=0.25, verbose=None):
         size = len(individual)
         original = individual[:]
-        gene = random.randint(0, size - 1)
-        individual[gene] = random.randint(low, up)
+
+        for _ in range(int(self.gene_size * gene_mutation_scale)):
+            gene = random.randint(0, size - 1)
+            individual[gene] = random.randint(low, up)
 
         if verbose:
             self.print_different(original, individual)

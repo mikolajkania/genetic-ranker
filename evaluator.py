@@ -31,14 +31,16 @@ class Evaluator:
             raise ValueError('Illegal searcher value')
 
     def quality(self, weights=None, verbose=None):
+        if verbose:
+            print(str(self.statistics))
         self.statistics.total += 1
 
         cache_key = self.key(weights)
         if cache_key in self.weights_to_score:
-            self.statistics.cached_values += 1
+            self.statistics.cache_retrievals += 1
             return self.weights_to_score[cache_key]
         else:
-            self.statistics.cache_retrievals += 1
+            self.statistics.cached_values += 1
 
         score = 0
 

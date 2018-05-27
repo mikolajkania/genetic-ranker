@@ -12,7 +12,7 @@ class Evaluator:
     statistics = None
 
     def __init__(self):
-        with open('queries.csv') as csvfile:
+        with open('queries.csv', encoding='utf-8') as csvfile:
             model_reader = csv.reader(csvfile, delimiter=',')
             for row in model_reader:
                 results = row[1].split(sep=":")
@@ -50,6 +50,7 @@ class Evaluator:
             if len(results_ids) == 0:
                 continue
 
+            # todo check whether types are equal
             if value.docId in results_ids[:value.expected_in_top]:
                 score += 1
             elif value.docId in results_ids[:value.adequate_in_top]:

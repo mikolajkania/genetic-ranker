@@ -11,7 +11,7 @@ class Ranker:
     evaluator = Evaluator()
     gene_min = 0
     gene_max = 10
-    gene_size = 20
+    gene_size = 7
 
     def __init__(self):
         # creator - factory to create new classes with given attributes

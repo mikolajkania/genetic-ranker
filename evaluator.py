@@ -16,7 +16,7 @@ class Evaluator:
             model_reader = csv.reader(csvfile, delimiter=',')
             for row in model_reader:
                 results = row[1].split(sep=":")
-                self.query_to_positions[row[0]] = Evaluator.Expected(docId=results[0],
+                self.query_to_positions[row[0]] = Evaluator.Expected(doc_id=results[0],
                                                                      expected=results[1][3:],
                                                                      adequate=results[2][3:])
         self.statistics = Evaluator.Statistics()
@@ -50,10 +50,9 @@ class Evaluator:
             if len(results_ids) == 0:
                 continue
 
-            # todo check whether types are equal
-            if value.docId in results_ids[:value.expected_in_top]:
+            if value.doc_id in results_ids[:value.expected_in_top]:
                 score += 1
-            elif value.docId in results_ids[:value.adequate_in_top]:
+            elif value.doc_id in results_ids[:value.adequate_in_top]:
                 score += 0.5
             else:
                 continue
@@ -82,20 +81,20 @@ class Evaluator:
         def __str__(self) -> str:
             return "Total evaluations: " + str(self.total) + ", " + \
                    "cached values: " + str(self.cached_values) + \
-                   ", retrivals from cache: " + str(self.cache_retrievals) + "."
+                   ", retrievals from cache: " + str(self.cache_retrievals) + "."
 
     class Expected:
-        docId = -1
+        doc_id = -1
         expected_in_top = -1
         adequate_in_top = -1
 
-        def __init__(self, docId, expected, adequate):
-            self.docId = docId
+        def __init__(self, doc_id, expected, adequate):
+            self.doc_id = doc_id
             self.expected_in_top = int(expected)
             self.adequate_in_top = int(adequate)
 
         def __str__(self):
-            return "id: " + self.docId + ", expected in top: " + str(self.expected_in_top) + \
+            return "id: " + self.doc_id + ", expected in top: " + str(self.expected_in_top) + \
                    ", adequate in top: " + str(self.adequate_in_top)
 
         def __repr__(self):

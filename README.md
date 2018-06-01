@@ -3,9 +3,9 @@ Genetic Ranker is a framework using power of genetic algorithms to found optimal
 
 ## The reason
 
-Finding optimal search weights for fields is long-lasting and ungrateful process. Imagine an index with millions of documents, every with tens of fields, and hundred of queries that should be tested to ensure how good actual configuration is. It can take a lifetime. I wrote a post (XXX link) about that on my blog, take a look if you need more information about this process. 
+Finding optimal search weights for fields is long-lasting and ungrateful process. Imagine an index with millions of documents, every with tens of fields, and hundred of queries that should be tested to ensure how good actual configuration is. It can take a lifetime. I [wrote a post](http://itblues.pl/)  about that on my blog, take a look if you need more information about this process. 
 
-## Why genetic algorithms?
+## Why genetic algorithm?
 
 Firstly, it is easy to *define problem as set of numeric weights* that can be altered during processing. Mutation, crossover & reproduction parts of the algorithm can easily be done on numbers. 
 
@@ -13,7 +13,7 @@ Secondly, genetic algorithms are able to *preserve solutions that are promising*
 
 Thirdly, due to mutation & crossover parts, algorithms *adds a bit of randomness to the process*. It may help to find the best answer even if actual is good. 
 
-More on that, again, here (todo xxx).
+More on that, again, [here](http://itblues.pl/).
 
 ## How to run
 
@@ -25,7 +25,7 @@ In ranker.py you should define how many fields do you want to use (*gene_size* i
 
 In queries.csv you need to specify use cases you want to test. The format is:
 
-*[query],[document_id]:[expected_position]:[good_enough_position]*
+<pre>[query],[document_id]:[expected_position]:[good_enough_position]</pre>
 
 In *properties.ini* you can define which search engine you want to use: ElasticSearch or Solr. Queries should be defined in *essearcher.py* and *solrsearcher.py* respectively.
  
@@ -35,18 +35,18 @@ In *properties.ini* you can define which search engine you want to use: ElasticS
  
  There are only 8 documents and 10 queries but I guarantee that you can spend a while on this task!
  
- In *data* directory there are files containing documents. You can use any ElasticSearch and Solr ways to index them, but for the former I used Postman (XXX link) and for the later - Solr admin panel.
+ In *data* directory there are files containing documents. You can use any ElasticSearch and Solr ways to index them, but for the former I used Postman tool and for the later - Solr admin panel.
  
  Having the server up and running should be enough to run a script and see results.
 
 ## Used Python libs
 
-deap
-
+<pre>deap
 elasticsearch
-
-pysolr
+pysolr</pre>
 
 You should check ther licenses and decide wheter you can use it your software. 
 
-** describe case **
+## Credis
+
+Happy using!

@@ -47,6 +47,6 @@ pysolr</pre>
 
 You should check ther licenses and decide wheter you can use it your software. 
 
-## Credis
+## The end
 
 Happy using!

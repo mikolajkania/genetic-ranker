@@ -13,7 +13,7 @@ Firstly, it is easy to *define problem as set of numeric weights* that can be al
 
 Secondly, genetic algorithms are able to *preserve solutions that are promising*, even without actual understanding of a problem. Better species (individuals) will be kept and be an ancestors for even better ones.
 
-Thirdly, due to mutation & crossover parts, algorithms *adds a bit of randomness to the process*. It may help to find the best answer even if actual is good. 
+Thirdly, due to mutation & crossover parts, algorithm *adds a bit of randomness to the process*. It may help to find the best answer even if actual is good. 
 
 More on that, again, [here](http://itblues.pl/).
 

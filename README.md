@@ -29,7 +29,7 @@ In queries.csv you need to specify use cases you want to test. The format is:
 
 <pre>[query],[document_id]:[expected_position]:[good_enough_position]</pre>
 
-In *properties.ini* you can define which search engine you want to use: ElasticSearch or Solr. Queries should be defined in *essearcher.py* and *solrsearcher.py* respectively.
+In *properties.ini* you can define which search engine you want to use: Elasticsearch or Solr. Queries should be defined in *essearcher.py* and *solrsearcher.py* respectively.
  
 ## Test it yourself
  
@@ -37,7 +37,7 @@ In *properties.ini* you can define which search engine you want to use: ElasticS
  
  There are only 8 documents and 10 queries but I guarantee that you can spend a while on this task.
  
- In *data* directory there are files containing documents. You can use any ElasticSearch and Solr ways to index them, but for the former I used Postman tool and for the later - Solr admin panel.
+ In *data* directory there are files containing documents. You can use any Elasticsearch and Solr ways to index them, but for the former I used Postman tool and for the later - Solr admin panel.
  
  Having the server up and running should be enough to run a script and see the results.
 

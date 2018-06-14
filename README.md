@@ -51,4 +51,4 @@ You should check ther licenses and decide wheter you can use it your software.
 
 ## The end
 
-Happy using!
+Every use case may need alteration of genetic algorithm values or algorithm itself, but proposed configuration should be a good starting point. Happy using!

@@ -10,7 +10,7 @@ class Ranker:
     toolbox = base.Toolbox()
     evaluator = Evaluator()
     gene_min = 0
-    gene_max = 10
+    gene_max = 9
     gene_size = 7
 
     def __init__(self):
@@ -101,7 +101,7 @@ def main():
     # CXPB  is the probability with which two individuals are crossed
     # MUTPB is the probability for mutating an individual
     population, logbook = algorithms.eaMuPlusLambda(population, ranker.toolbox, mu=MU, lambda_=LAMBDA, cxpb=0.6,
-                                                    mutpb=0.2, ngen=5, halloffame=hof)
+                                                    mutpb=0.2, ngen=10, halloffame=hof)
     # print(population)
     print_best(population, ranker, hof)
 

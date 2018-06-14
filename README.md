@@ -5,7 +5,7 @@ Genetic Ranker is a framework using power of genetic algorithms to find optimal 
 
 Finding optimal search weights for fields is long-lasting and ungrateful process. Imagine an index with millions of documents, every with tens of fields, and hundred of queries that should be tested to ensure how good actual configuration is. Your job is to determine how important are particular fields. It can take a lifetime. 
 
-I [wrote a post](http://itblues.pl/)  about that on my blog, take a look if you need more information about this process. 
+I [wrote a post](http://itblues.pl/2018/06/15/Genetic-ranker-a-genetic-algorithm-framework/)  about that on my blog, take a look if you need more information about this process. 
 
 ## Why genetic algorithm?
 
@@ -15,7 +15,7 @@ Secondly, genetic algorithms are able to *preserve solutions that are promising*
 
 Thirdly, due to mutation & crossover parts, algorithm *adds a bit of randomness to the process*. It may help to find the best answer even if actual is good. 
 
-More on that, again, [here](http://itblues.pl/).
+More on that, again, [here](http://itblues.pl/2018/06/15/Genetic-ranker-a-genetic-algorithm-framework/).
 
 ## How to run
 
@@ -47,7 +47,7 @@ In *properties.ini* you can define which search engine you want to use: Elastics
 elasticsearch
 pysolr</pre>
 
-You should check ther licenses and decide wheter you can use it your software. 
+You should check their licenses and decide wheter you can use it your software. 
 
 ## The end
 

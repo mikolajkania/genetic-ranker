@@ -23,7 +23,7 @@ To start GeneticRanker you need to run a ranker.py file. Project contains all da
 
 ## Basic configuration
 
-In ranker.py you should define how many fields do you want to use (*gene_size* in *Ranker*). Then specify those fields in *Evaluator* class (*fields*).
+In ranker.py you should define how many fields you want to use (*gene_size* in *Ranker*). Then specify those fields in *Evaluator* class (*fields*).
 
 In queries.csv you need to specify use cases you want to test. The format is:
 
@@ -35,11 +35,11 @@ In *properties.ini* you can define which search engine you want to use: ElasticS
  
  Imagine you are a search engineer who have to find optimal weights for fields upon which the queries are run. The only things you have is file *queries.csv*, containing queries, and documents in the index. Before running GeneticRanker take a while to read these csv file and analyze documents from *queries-es.txt*. 
  
- There are only 8 documents and 10 queries but I guarantee that you can spend a while on this task!
+ There are only 8 documents and 10 queries but I guarantee that you can spend a while on this task.
  
  In *data* directory there are files containing documents. You can use any ElasticSearch and Solr ways to index them, but for the former I used Postman tool and for the later - Solr admin panel.
  
- Having the server up and running should be enough to run a script and see results.
+ Having the server up and running should be enough to run a script and see the results.
 
 ## Used Python libs
 

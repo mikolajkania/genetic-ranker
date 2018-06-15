@@ -49,6 +49,6 @@ pysolr</pre>
 
 You should check their licenses and decide wheter you can use it your software. 
 
-## The end
+## Closing notes
 
 Every use case may need alteration of genetic algorithm values or algorithm itself, but proposed configuration should be a good starting point. Happy using!

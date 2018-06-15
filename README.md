@@ -1,5 +1,5 @@
 # Genetic Ranker
-Genetic Ranker is a framework using power of genetic algorithms to find optimal search weights for ElasticSearch or Solr queries.
+Genetic Ranker is a framework using power of genetic algorithms to find optimal search weights for Elasticsearch or Solr queries.
 
 ## The reason
 

@@ -47,7 +47,7 @@ In *properties.ini* you can define which search engine you want to use: Elastics
 elasticsearch
 pysolr</pre>
 
-You should check their licenses and decide wheter you can use it your software. 
+You should check their licenses and decide whether you want use them in your software. Genetic algorithm is implemented using [deap framework](https://github.com/DEAP/deap).
 
 ## Closing notes
 

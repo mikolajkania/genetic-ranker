@@ -15,7 +15,7 @@ Secondly, genetic algorithms are able to *preserve solutions that are promising*
 
 Thirdly, due to mutation & crossover parts, algorithm *adds a bit of randomness to the process*. It may help to find the best answer even if actual is good. 
 
-More on that, again, [here](http://itblues.pl/2018/06/15/Genetic-ranker-a-genetic-algorithm-framework/).
+More on that, again, [here](http://itblues.pl/2018/06/15/Genetic-ranker-a-genetic-algorithms-for-search/).
 
 ## How to run
 

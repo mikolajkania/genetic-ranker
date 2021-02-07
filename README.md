@@ -5,7 +5,7 @@ Genetic Ranker is a framework using power of genetic algorithms to find optimal 
 
 Finding optimal search weights for fields is long-lasting and ungrateful process. Imagine an index with millions of documents, every with tens of fields, and hundred of queries that should be tested to ensure how good actual configuration is. Your job is to determine how important are particular fields. It can take a lifetime. 
 
-I [wrote a post](http://itblues.pl/2018/06/15/Genetic-ranker-a-genetic-algorithms-for-search/)  about that on my blog, take a look if you need more information about this process. 
+I [wrote a post](https://mikolajkania.com/2018/06/15/Genetic-ranker-a-genetic-algorithms-for-search/)  about that on my blog, take a look if you need more information about this process. 
 
 ## Why genetic algorithm?
 
